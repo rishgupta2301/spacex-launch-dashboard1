@@ -1,0 +1,121 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #282c34;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .App-header {
+    background-color: #20232a;
+    padding: 20px;
+    color: white;
+    text-align: center;
+    border-bottom: 1px solid #444;
+  }
+  
+  .launch-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .launch-table th,
+  .launch-table td {
+    padding: 12px;
+    border: 1px solid #444;
+    text-align: left;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .launch-table th {
+    background-color: #444;
+    font-weight: bold;
+    color: #ffffff;
+  }
+  
+  .launch-table tbody tr:hover {
+    background-color: #3d4149;
+  }
+  
+  .even {
+    background-color: #333;
+  }
+  
+  .odd {
+    background-color: #282c34;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .pagination button:hover {
+    background-color: #666;
+  }
+  
+  .modal {
+    background-color: #20232a;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    max-width: 500px;
+    margin: 50px auto;
+    border: 1px solid #444;
+  }
+  
+  .launch-detail {
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #282c34;
+  }
+  
+  .launch-detail h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #61dafb;
+  }
+  
+  .launch-detail div {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  
+  .launch-detail div strong {
+    color: #61dafb;
+  }
+  
+  .launch-status {
+    font-weight: bold;
+  }
+  
+  .launch-status.success {
+    color: green;
+  }
+  
+  .launch-status.failed {
+    color: red;
+  }
+  
+  .launch-status.upcoming {
+    color: orange;
+  }
+  
