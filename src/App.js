@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import LaunchList from './components/LaunchList'
+import LaunchList from './components/LaunchList';
 import './App.css';
 
 const App = () => {
@@ -12,8 +12,12 @@ const App = () => {
   useEffect(() => {
     const fetchLaunches = async () => {
       setLoading(true);
-      const response = await axios.get('https://api.spacexdata.com/v3/launches');
-      setLaunches(response.data);
+      try {
+        const response = await axios.get('https://api.spacexdata.com/v3/launches');
+        setLaunches(response.data);
+      } catch (error) {
+        console.error("Error fetching launch data:", error);
+      }
       setLoading(false);
     };
 
@@ -28,6 +32,43 @@ const App = () => {
     setTimeframe(event.target.value);
   };
 
+  const filterLaunches = (launches, filter, timeframe) => {
+    const now = new Date();
+    let filteredLaunches = launches;
+
+    // Filter by timeframe
+    switch (timeframe) {
+      case '1 month':
+        filteredLaunches = launches.filter(launch => 
+          new Date(launch.launch_date_utc) >= new Date(now.setMonth(now.getMonth() - 1))
+        );
+        break;
+      case '6 months':
+        filteredLaunches = launches.filter(launch => 
+          new Date(launch.launch_date_utc) >= new Date(now.setMonth(now.getMonth() - 6))
+        );
+        break;
+      case '1 year':
+        filteredLaunches = launches.filter(launch => 
+          new Date(launch.launch_date_utc) >= new Date(now.setFullYear(now.getFullYear() - 1))
+        );
+        break;
+      default:
+        break;
+    }
+
+    // Filter by launch type
+    if (filter === 'upcoming') {
+      filteredLaunches = filteredLaunches.filter(launch => new Date(launch.launch_date_utc) > now);
+    } else if (filter === 'past') {
+      filteredLaunches = filteredLaunches.filter(launch => new Date(launch.launch_date_utc) <= now);
+    }
+
+    return filteredLaunches;
+  };
+
+  const filteredLaunches = filterLaunches(launches, filter, timeframe);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -37,8 +78,8 @@ const App = () => {
         <div className="dropdown">
           <label htmlFor="timeframe">Timeframe</label>
           <select id="timeframe" value={timeframe} onChange={handleTimeframeChange}>
-            <option value="6 months">Past 6 Months</option>
             <option value="1 month">Past 1 Month</option>
+            <option value="6 months">Past 6 Months</option>
             <option value="1 year">Past 1 Year</option>
           </select>
         </div>
@@ -52,7 +93,7 @@ const App = () => {
         </div>
       </div>
       <div className="launch-table-container">
-        <LaunchList launches={launches} filter={filter} timeframe={timeframe} loading={loading} />
+        {loading ? <p>Loading...</p> : <LaunchList launches={filteredLaunches} />}
       </div>
     </div>
   );
