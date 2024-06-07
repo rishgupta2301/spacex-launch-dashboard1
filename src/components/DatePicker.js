@@ -27,6 +27,7 @@ const CustomDatePicker = ({ isOpen, onClose, onChange }) => {
         inline
       />
     </div>
+    
   );
 };
 
